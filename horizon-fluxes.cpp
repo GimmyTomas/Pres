@@ -719,10 +719,10 @@ int main () {
     
     int nprime_max = 2, lprime_max = 1, abs_g_max = 20;
     int n = 2, l = 1, m = 1;
-    double alpha = 0.12;
+    double alpha = 0.2;
     double McOverM = 0.01;
     double q = 0.001;
-    double eccentricity = 0.95, inclination = 0*M_PI/180, argument_periapsis = 0*M_PI/180;
+    double eccentricity = 0.5, inclination = 70*M_PI/180, argument_periapsis = 0*M_PI/180;
     
     HorizonFluxes Flux;
     
