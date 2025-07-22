@@ -1,6 +1,6 @@
 # Pres
 # Description
-This is a repository containing the code used in <a href="https://arxiv.org/abs/2507.xxxxx">arXiv:2507.xxxxx</a> [1] to study gravitational atoms in binary systems. The code is public in order for other people to use it, check it and improve it.
+This is a repository containing the code used in <a href="https://arxiv.org/abs/2507.15110">arXiv:2507.15110</a> [1] to study gravitational atoms in binary systems. The code is public in order for other people to use it, check it and improve it.
 
 (i) The file `horizon-fluxes.cpp` calculates the cloud mass loss rate and the resonance power ("P_res"). Compiling instructions are inside the file. The content of the main function should be self-explanatory.
 
@@ -16,7 +16,7 @@ If you make use of this code, please consider citing the corresponding paper,
 <pre><code> @article{Tomaselli:2025xxx,
     author = "Tomaselli, Giovanni Maria",
     title = "{Smooth binary evolution from wide resonances in boson clouds}",
-    eprint = "2507.xxxxx",
+    eprint = "2507.15110",
     archivePrefix = "arXiv",
     primaryClass = "gr-qc",
     year = "2025"
