@@ -12,13 +12,4 @@ This is a repository containing the code used in <a href="https://arxiv.org/abs/
 For any questions, feedback or suggestions, please send an email to <a href="mailto:gimmytomas@gmail.com">gimmytomas@gmail.com</a>.
 
 # Citing
-If you make use of this code, please consider citing the corresponding paper,
-<pre><code> @article{Tomaselli:2025xxx,
-    author = "Tomaselli, Giovanni Maria",
-    title = "{Smooth binary evolution from wide resonances in boson clouds}",
-    eprint = "2507.15110",
-    archivePrefix = "arXiv",
-    primaryClass = "gr-qc",
-    year = "2025"
-}
-</code></pre>
+If you make use of this code, please consider citing the corresponding <a href="https://inspirehep.net/literature/2952263">paper</a>.
