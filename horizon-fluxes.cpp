@@ -38,6 +38,7 @@ using namespace boost::multiprecision;
 
 // Change this line to use cpp_complex_100, in order increase numerical precision in the Leaver method (needed for high-\ell states, but makes the code much slower):
 using Complex_high_prec = std::complex<double>;//cpp_complex_100;//
+using Real_high_prec = decltype(Complex_high_prec().real()); // real type with the same precision as Complex_high_prec
 
 inline long double factorial (int n)
 {
@@ -102,7 +103,8 @@ double Gamma_Detweiler (int n, int l, int m, double alpha, double atilde)
     return 2*r_plus * Cnl * glm * (m*Omega_plus - omeganlm) * pow(alpha, 4*l+5);
 }
 
-// Taylor series approximation of the eigenvalue of the spheroidal harmonics
+// Taylor series approximation of the eigenvalue of the spheroidal harmonics, in the convention where the angular equation is
+// (1-z^2) y'' - 2 z y' + (lambda + c_squared (1-z^2) - m^2/(1-z^2)) y = 0   [same as Mathematica's SpheroidalEigenvalue, with c_squared = gamma^2]
 Complex_high_prec SpheroidalEigenvalue (int l, int m, Complex_high_prec c_squared)
 {
     Complex_high_prec a0 = l*(1 + l);
@@ -198,10 +200,15 @@ std::complex<double> omega_Leaver (int n, int l, int m, double alpha, double ati
     
     int n_max = 2000;
     const Complex_high_prec I(0.0, 1.0);
-    double b = sqrt(1-pow(atilde,2));
+    // b must have the same precision as the rest of the continued fraction: a double-precision b is inconsistent with atilde at the 1e-16 level,
+    // which with cpp_complex_100 produces a spurious imaginary part of omega (of order 1e-23 for alpha = 0.2), larger than the decay width of high-\ell states.
+    Real_high_prec b = sqrt(1-pow(Real_high_prec(atilde),2));
         
+    // Separation constant of the Kerr angular equation, which contains the term + c^2 cos^2(theta), with c^2 = atilde^2 (omega^2 - alpha^2).
+    // In the convention of SpheroidalEigenvalue this corresponds to c_squared = -c^2, and Lambda = lambda(-c^2) - c^2.
+    // (Versions of this code prior to November 2026 used lambda(+c^2) instead, see README.)
     auto Lambda = [&](Complex_high_prec omega) -> Complex_high_prec
-    { return SpheroidalEigenvalue(l, m, pow(atilde,2)*(pow(omega,2) - pow(alpha,2))); };
+    { Complex_high_prec c_squared = pow(atilde,2)*(pow(omega,2) - pow(alpha,2)); return SpheroidalEigenvalue(l, m, -c_squared) - c_squared; };
     auto q = [&](Complex_high_prec omega)
     { return -sqrt(alpha*alpha - omega*omega); };
     
